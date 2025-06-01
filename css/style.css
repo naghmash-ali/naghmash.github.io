@@ -1,0 +1,47 @@
+/* css/style.css */
+
+/*
+  You can add custom CSS rules here if needed,
+  though Tailwind CSS handles most of the styling.
+  For example, if you want a very specific font combination
+  not easily configured in Tailwind, or complex animations.
+*/
+
+body {
+    /* Example: Antialiasing for smoother fonts */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Example: Custom styling for a specific element not easily done with Tailwind utility classes */
+/*
+.custom-highlight {
+    background: linear-gradient(to right, #10B981, #1E3A8A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+*/
+
+/* Add any specific overrides or complex styles below */
+
+/* Ensure content doesn't jump due to scrollbar appearing/disappearing */
+html {
+    overflow-y: scroll;
+}
+
+/* Styling for active navigation link (can also be done with JS adding/removing a Tailwind class) */
+/* .nav-link.active {
+    color: #1E3A8A; /* primary color */
+/* font-weight: 600;
+/* }
+*/
+
+/* You might want to style blockquotes if you use them for publication excerpts */
+blockquote {
+    border-left: 4px solid #10B981; /* secondary color */
+    padding-left: 1rem;
+    margin-left: 0;
+    font-style: italic;
+    color: #4b5563; /* gray-600 */
+}
