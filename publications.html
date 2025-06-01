@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publications - Naghmash Ali</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="css/style.css"> <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -18,9 +17,12 @@
                         inter: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#1E3A8A', // A deep blue
-                        secondary: '#10B981', // A vibrant green
-                        lightgray: '#f4f4f5',
+                        primary: '#1E3A8A', // Deep Blue
+                        secondary: '#10B981', // Vibrant Green
+                        accent: '#F59E0B', // Amber/Gold for accents
+                        lightgray: '#f4f7f6', 
+                        cardbg: '#ffffff', 
+                        cardbgalt: '#f9fafb', 
                         darkgray: '#374151',
                     }
                 }
@@ -28,12 +30,12 @@
         }
     </script>
     <style>
-        /* Basic smooth scroll */
         html {
             scroll-behavior: smooth;
         }
         body {
             font-family: 'Inter', sans-serif;
+            background-color: tailwind.theme.colors.lightgray;
         }
         .nav-link {
             @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary hover:bg-blue-50 transition-colors duration-150;
@@ -41,33 +43,70 @@
         .nav-link.active {
             @apply text-primary bg-blue-100;
         }
-        .section-title {
-            @apply text-3xl font-bold text-darkgray mb-8 text-center;
+        .section-title-page { 
+            @apply text-4xl font-bold text-darkgray mb-4 text-center; 
         }
-        .card { /* This class is used on this page for individual publication items */
-            @apply bg-white rounded-lg shadow-lg overflow-hidden p-6 transition-shadow duration-300 hover:shadow-xl;
+        .publication-list { /* This will now be an <ol> */
+            @apply list-decimal list-inside space-y-0; /* Add list-decimal and control spacing */
         }
-        .publication-item { 
-            @apply bg-white rounded-lg shadow-lg p-6 mb-6 transition-shadow duration-300 hover:shadow-xl;
+        .publication-list li::marker { /* Style the numbers */
+            @apply font-semibold text-primary;
         }
+        .publication-item { /* This will now be an <li> */
+            @apply rounded-lg shadow-md p-6 mb-4 border border-gray-200 transition-all duration-300 hover:shadow-xl hover:border-primary ml-4; /* Added margin-left for number spacing */
+        }
+        .publication-list li:nth-child(odd) .publication-item-content { /* Content div inside li */
+             background-color: tailwind.theme.colors.cardbg;
+        }
+        .publication-list li:nth-child(even) .publication-item-content {
+            background-color: tailwind.theme.colors.cardbgalt;
+        }
+        .publication-item-content { /* Wrapper for the content inside li, to apply alternating bg */
+            @apply p-6 rounded-md; /* Keep padding here if needed, or adjust item padding */
+        }
+
+
         .publication-title {
             @apply text-lg font-semibold text-primary mb-1;
         }
         .publication-authors {
-            @apply text-sm text-gray-600 mb-1;
+            @apply text-sm text-gray-700 mb-1; 
         }
         .publication-venue {
             @apply text-sm text-gray-500 italic mb-2;
         }
-        .publication-links a {
-            @apply text-secondary hover:underline text-sm mr-3 inline-flex items-center;
+        .publication-category-header { 
+            @apply text-3xl font-bold text-primary mt-12 mb-6 border-b-4 border-secondary pb-3 flex items-center;
         }
-        .publication-year-header {
-            @apply text-2xl font-semibold text-primary mt-10 mb-6 border-b pb-2;
+        .publication-category-header i { 
+            @apply mr-4 text-secondary text-3xl;
         }
-        /* Dropdown styles */
+        .publication-year-subheader { 
+            @apply text-xl font-semibold text-darkgray mt-8 mb-4 p-2 bg-gray-100 rounded-md shadow-sm; 
+        }
         .dropdown .dropdown-menu {
             @apply opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150;
+        }
+        .info-banner {
+            @apply text-center text-gray-700 bg-blue-100 p-6 rounded-lg mb-10 shadow-lg border border-blue-200;
+        }
+        .stats-outer-container { 
+            @apply bg-white p-6 rounded-xl shadow-xl border border-gray-200 mb-12;
+        }
+        .stats-inner-container { 
+            @apply flex flex-col sm:flex-row justify-around items-center gap-4; 
+        }
+        .stat-card { 
+            @apply text-center p-4 flex-1 min-w-[150px]; 
+        }
+        .stat-card i {
+            @apply text-3xl text-secondary mb-2;
+        }
+        .stat-value {
+            @apply text-2xl font-bold text-primary;
+        }
+        .stat-label {
+            @apply text-sm text-gray-600;
         }
     </style>
 </head>
@@ -120,216 +159,306 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         <section id="all-publications" class="py-12">
-            <h1 class="section-title text-4xl">All Publications</h1>
-            <p class="text-center text-gray-600 mb-10">
-                Browse through my complete list of publications. You can also find them on my <a href="YOUR_GOOGLE_SCHOLAR_PROFILE_LINK" target="_blank" class="text-primary hover:underline font-semibold">Google Scholar profile</a> or <a href="assets/documents/Naghmash_Ali_CV.pdf" target="_blank" class="text-primary hover:underline font-semibold">my CV</a>.
-                <br> (Accumulative Impact Factor: 152.1, Citations: 800+, h-index: 15, i-10 index: 16)
-            </p>
+            <h1 class="section-title-page">All Publications</h1>
+            <div class="info-banner">
+                <p>
+                    Browse through my complete list of publications. You can also find them on my 
+                    <a href="YOUR_GOOGLE_SCHOLAR_PROFILE_LINK" target="_blank" class="text-primary hover:underline font-semibold">Google Scholar profile</a> or 
+                    <a href="assets/documents/Naghmash_Ali_CV.pdf" target="_blank" class="text-primary hover:underline font-semibold">my CV</a>.
+                </p>
+            </div>
 
-            <div>
-                <h2 class="publication-year-header">Papers In Review</h2>
-                <div class="space-y-6">
-                    <div class="publication-item">
-                        <h3 class="publication-title">J29: A Data-Driven Approach for Economic Dispatch and Maximum Power Point Tracking in an Electric-Hydrogen Powered Offshore Microgrid</h3>
-                        <p class="publication-authors">Naghmash Ali, Xinwei Shen, Hammad Armghan.</p>
-                        <p class="publication-venue">In Review: IEEE Transactions on Smart Grid.</p>
+            <div class="stats-outer-container">
+                <div class="stats-inner-container">
+                    <div class="stat-card">
+                        <i class="fas fa-flask"></i>
+                        <p class="stat-value">152.1</p>
+                        <p class="stat-label">Accumulative Impact Factor</p>
                     </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J28: Multi-level Control For Shared Hydrogen Storage System Based Offshore DC Microgrid Cluster Involving Adaptive Barrier Function</h3>
-                        <p class="publication-authors">Naghmash Ali, Xinwei Shen, Hammad Armghan.</p>
-                        <p class="publication-venue">In Review: Energy.</p>
+                    <div class="stat-card">
+                        <i class="fas fa-quote-right"></i>
+                        <p class="stat-value">800+</p>
+                        <p class="stat-label">Citations</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-chart-line"></i>
+                        <p class="stat-value">15</p>
+                        <p class="stat-label">h-index</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-list-ol"></i>
+                        <p class="stat-value">16</p>
+                        <p class="stat-label">i-10 index</p>
                     </div>
                 </div>
             </div>
 
             <div>
-                <h2 class="publication-year-header">Journal Papers</h2>
-                
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">2024</h3>
-                <div class="space-y-6">
-                    <div class="publication-item">
-                        <h3 class="publication-title">J27: Hierarchical control combined with higher order sliding mode control for integrating wind/tidal/battery/hydrogen powered DC offshore microgrid</h3>
-                        <p class="publication-authors">Naghmash Ali, Xinwei Shen, Hammad Armghan, Yunfei Du.</p>
-                        <p class="publication-venue">Journal of Energy Storage, 2024 (I.F-9.4)</p>
+                <h2 class="publication-category-header"><i class="fas fa-hourglass-half"></i>Papers In Review</h2>
+                <ol class="publication-list mt-4"> 
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J29: A Data-Driven Approach for Economic Dispatch and Maximum Power Point Tracking in an Electric-Hydrogen Powered Offshore Microgrid</h3>
+                            <p class="publication-authors">Naghmash Ali, Xinwei Shen, Hammad Armghan.</p>
+                            <p class="publication-venue">In Review: IEEE Transactions on Smart Grid.</p>
                         </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J26: A tri-level control framework for carbon-aware multi-energy microgrid cluster considering shared hydrogen energy storage</h3>
-                        <p class="publication-authors">Hammad Armghan, Yinliang Xu, Xiang Bai, Naghmash Ali, Xinyue Chang, Yixun Xue.</p>
-                        <p class="publication-venue">Applied Energy, 2024 (I.F-11.2)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J25: Coordination Control in Hybrid Energy Storage Based Microgrids Providing Ancillary Services: A Three-Layer Control</h3>
-                        <p class="publication-authors">Hammad Armghan, Yinliang Xu, Naghmash Ali.</p>
-                        <p class="publication-venue">Journal of Energy Storage, 2024 (I.F-9.4)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J24: Deep Learning Based Barrier-function Super-twisting Sliding Mode Control For Integrating Renewables In Smart Grid</h3>
-                        <p class="publication-authors">Hammad Armghan, Yinliang Xu, Xiang Bai, Naghmash Ali, Yixun Xue.</p>
-                        <p class="publication-venue">IET Smart Grid, 2024 (I.F-2.4)</p>
-                    </div>
-                     <div class="publication-item">
-                        <h3 class="publication-title">J23: Event-triggered multi-time scale control and low carbon operation for electric-hydrogen DC microgrid</h3>
-                        <p class="publication-authors">Hammad Armghan, Yinliang Xu, Hongbin Sun, Naghmash Ali, Jiajin Liu.</p>
-                        <p class="publication-venue">Applied Energy, 2024 (I.F-11.2)</p>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">2023</h3>
-                <div class="space-y-6">
-                    <div class="publication-item">
-                        <h3 class="publication-title">J22: Hybrid Control of the DC Microgrid Using Deep Neural Networks and Global Terminal Sliding Mode Control with the Exponential Reaching Law</h3>
-                        <p class="publication-authors">Mohamed A Sharaf, Hammad Armghan, Naghmash Ali, Amr Yousef, Yasser S Abdalla, Anis R Boudabbous, Hafiz Mehdi, Ammar Armghan.</p>
-                        <p class="publication-venue">Sensors, 2023 (I.F-3.9)</p>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">2022</h3>
-                <div class="space-y-6">
-                    <div class="publication-item">
-                        <h3 class="publication-title">J21: Fast reaching law based integral terminal sliding mode controller for PV-fuel cell-battery-super capacitor based direct-current microgrid</h3>
-                        <p class="publication-authors">Yasser S Abdalla, Naghmash Ali, Abdulaziz Alanazi, Mohana Alanazi, Hammad Armghan, Mohamed A Sharaf, Anis R Boudabbous, Ammar Armghan.</p>
-                        <p class="publication-venue">Journal of Energy Storage, 2022 (I.F-9.4)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J20: Super-twisting sliding mode controller for maximum power transfer efficiency tracking in hybrid energy storage based wireless in-wheel motor</h3>
-                        <p class="publication-authors">Naghmash Ali, Zhizhen Liu, Hammad Armghan, Ammar Armghan.</p>
-                        <p class="publication-venue">Sustainable Energy Technologies and Assessments, 2022 (I.F-8.0)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J19: Double integral sliding mode controller for wirelessly charging of fuel cell-battery-super capacitor based hybrid electric vehicle</h3>
-                        <p class="publication-authors">Naghmash Ali, Zhizhen Liu, Hammad Armghan, Ammar Armghan.</p>
-                        <p class="publication-venue">Journal of Energy Storage, 2022 (I.F-9.4)</p>
-                    </div>
-                     <div class="publication-item">
-                        <h3 class="publication-title">J18: Quick reaching law based global terminal sliding mode control for wind/hydrogen/battery DC microgrid</h3>
-                        <p class="publication-authors">Hammad Armghan, Ming Yang, Naghmash Ali, Ammar Armghan, Abdulaziz Alanazi.</p>
-                        <p class="publication-venue">Applied Energy, 2022 (I.F-11.2)</p>
-                    </div>
-                     <div class="publication-item">
-                        <h3 class="publication-title">J17: A novel dual-load wireless power transfer system applied to electric vehicles and its characteristics analysis</h3>
-                        <p class="publication-authors">Xiaozhao Wei, Yanjin Hou, Zhizhen Liu, Sen Qiao, Liuhuan Liang, Naghmash Ali, Shuyao Sun, Xueqing Luo, Ran Ding, and Guowen Feng.</p>
-                        <p class="publication-venue">Energy Reports 8 (2022) (I.F-5.2)</p>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">2021</h3>
-                <div class="space-y-6">
-                     <div class="publication-item">
-                        <h3 class="publication-title">J16: Barrier Function Based Adaptive Sliding Mode Controller for a Hybrid AC/DC Microgrid Involving Multiple Renewables</h3>
-                        <p class="publication-authors">Ammar Armghan, Mudasser Hassan, Hammad Armghan, Ming Yang, Fayadh Alenezi, Muhammad Kashif Azeem, Naghmash Ali.</p>
-                        <p class="publication-venue">Applied Sciences, 2021 (I.F-2.7)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J15: Neurofuzzy robust backstepping based MPPT control for photovoltaic system</h3>
-                        <p class="publication-authors">Kamran Ali, Laiq Khan, Qudrat Khan, Shafaat Ullah, and Naghmash Ali.</p>
-                        <p class="publication-venue">Turkish Journal of Electrical Engineering and Computer Sciences 29, no. 1 (2021) (I.F-1.1)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J14: Double integral action based sliding mode controller design for the back-to-back converters in grid-connected hybrid wind-PV system</h3>
-                        <p class="publication-authors">Hammad Armghan, Ming Yang, Ammar Armghan, Naghmash Ali.</p>
-                        <p class="publication-venue">International Journal of Electrical Power & Energy Systems, 2021 (I.F-5.2)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J13: Dynamic process analysis and voltage stabilization control of multi-load wireless power supply system</h3>
-                        <p class="publication-authors">Shujing Fan, Zhizhen Liu, Guowen Feng, Naghmash Ali, and Yanjin Hou.</p>
-                        <p class="publication-venue">Energies 14, no. 5 (2021) (I.F-3.252)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J12: LCC-S-based integral terminal sliding mode controller for a hybrid energy storage system using a wireless power system</h3>
-                        <p class="publication-authors">Naghmash Ali, Zhizhen Liu, Hammad Armghan, Iftikhar Ahmad, Yanjin Hou.</p>
-                        <p class="publication-venue">Energies, 2021 (I.F-3.2)</p>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">2020</h3>
-                <div class="space-y-6">
-                    <div class="publication-item">
-                        <h3 class="publication-title">J11: Lyapunov based adaptive controller for power converters used in hybrid energy storage systems</h3>
-                        <p class="publication-authors">Mudasser Hassan, Zahir Javed Paracha, Hammad Armghan, Naghmash Ali, Hafiz Ahsan Said, Umar Farooq, Ammar Afzal, Muhammad Arshad Shehzad Hassan.</p>
-                        <p class="publication-venue">Sustainable Energy Technologies and Assessments, 2020 (I.F-8.0)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J10: Dual-band wireless power transmission system for dual-load synchronous power supply</h3>
-                        <p class="publication-authors">Liuhuan Liang, Zhizhen Liu, Shujing Fan, Tang Guoshen, Yanjin Hou Naghmash Ali.</p>
-                        <p class="publication-venue">Proc. CSEE 40.10 (2020)</p>
-                    </div>
-                     <div class="publication-item">
-                        <h3 class="publication-title">J9: Non-linear control for electric power stage of fuel cell vehicles</h3>
-                        <p class="publication-authors">Muhammad Faizan Munir, Iftikhar Ahmad, Syed Ahmad Siffat, Mohammad Ahmed Qureshi, Hammad Armghan, Naghmash Ali.</p>
-                        <p class="publication-venue">ISA transactions, 2020 (I.F-7.3)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J8: Design of integral terminal sliding mode controller for the hybrid AC/DC microgrids involving renewables and energy storage systems</h3>
-                        <p class="publication-authors">Hammad Armghan, Ming Yang, Ammar Armghan, Naghmash Ali, MQ Wang, Iftikhar Ahmad.</p>
-                        <p class="publication-venue">International Journal of Electrical Power & Energy Systems, 2020 (I.F-5.2)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J7: Nonlinear integral backstepping based control of a DC microgrid with renewable generation and energy storage systems</h3>
-                        <p class="publication-authors">Hammad Armghan, Ming Yang, MQ Wang, Naghmash Ali, Ammar Armghan.</p>
-                        <p class="publication-venue">International Journal of Electrical Power & Energy Systems, 2020 (I.F-5.2)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J6: LCC-S based discrete fast terminal sliding mode controller for efficient charging through wireless power transfer</h3>
-                        <p class="publication-authors">Naghmash Ali, Zhizhen Liu, Yanjin Hou, Hammad Armghan, Xiaozhao Wei, Ammar Armghan.</p>
-                        <p class="publication-venue">Energies, 2020 (I.F-3.2)</p>
-                    </div>
-                </div>
-
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">2019</h3>
-                <div class="space-y-6">
-                    <div class="publication-item">
-                        <h3 class="publication-title">J5: Robust integral backstepping based nonlinear mppt control for a pv system</h3>
-                        <p class="publication-authors">Kamran Ali, Laiq Khan, Qudrat Khan, Shafaat Ullah, Saghir Ahmad, Sidra Mumtaz, Fazal Wahab Karam, Naghmash Ali.</p>
-                        <p class="publication-venue">Energies 12, no. 16 (2019) (I.F-3.252)</p>
-                    </div>
-                </div>
-                
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">2018</h3>
-                <div class="space-y-6">
-                    <div class="publication-item">
-                        <h3 class="publication-title">J4: Backstepping sliding mode control of FC-UC based hybrid electric vehicle</h3>
-                        <p class="publication-authors">Muhammad Saud Khan, Iftikhar Ahmad, Hammad Armghan, Naghmash Ali.</p>
-                        <p class="publication-venue">IEEE Access, 2018 (I.F-3.9)</p>
-                    </div>
-                     <div class="publication-item">
-                        <h3 class="publication-title">J3: Nonlinear controller analysis of fuel cell-battery-ultracapacitor-based hybrid energy storage systems in electric vehicles</h3>
-                        <p class="publication-authors">Hammad Armghan, Iftikhar Ahmad, Naghmash Ali, Muhammad Faizan Munir, Saud Khan, Ammar Armghan.</p>
-                        <p class="publication-venue">Arabian Journal for Science and Engineering, 2018 (I.F-2.9)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J2: MPPT for photovoltaic system using nonlinear controller</h3>
-                        <p class="publication-authors">Ramsha Iftikhar, Iftikhar Ahmad, Muhammad Arsalan, Neelma Naz, Naghmash Ali, Hammad Armghan.</p>
-                        <p class="publication-venue">International Journal of Photoenergy, 2018 (I.F-2.5)</p>
-                    </div>
-                    <div class="publication-item">
-                        <h3 class="publication-title">J1: Backstepping based non-linear control for maximum power point tracking in photovoltaic system</h3>
-                        <p class="publication-authors">Naghmash Ali, Hammad Armghan, Iftikhar Ahmad, Ammar Armghan, Saud Khan, Muhammad Arsalan.</p>
-                        <p class="publication-venue">Solar Energy, 2018 (I.F-6.7)</p>
-                    </div>
-                </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J28: Multi-level Control For Shared Hydrogen Storage System Based Offshore DC Microgrid Cluster Involving Adaptive Barrier Function</h3>
+                            <p class="publication-authors">Naghmash Ali, Xinwei Shen, Hammad Armghan.</p>
+                            <p class="publication-venue">In Review: Energy.</p>
+                        </div>
+                    </li>
+                </ol>
             </div>
 
             <div>
-                <h2 class="publication-year-header">Conference Papers</h2>
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">2024</h3>
-                <div class="space-y-6">
-                    <div class="publication-item">
-                        <h3 class="publication-title">C1: Improved Grey Wolf Optimized Integral Terminal Sliding Mode Controller for Wind/PV/Tidal based Offshore Microgrid System</h3>
-                        <p class="publication-authors">Naghmash Ali, Xinwei Shen, Hammad Armghan, Umar Farooq.</p>
-                        <p class="publication-venue">8th IEEE Conference on Energy Internet and Energy System Integration. IEEE, 2024</p>
+                <h2 class="publication-category-header"><i class="fas fa-book-open"></i>Journal Papers</h2>
+                
+                <h3 class="publication-year-subheader">2024</h3>
+                <ol class="publication-list">
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J27: Hierarchical control combined with higher order sliding mode control for integrating wind/tidal/battery/hydrogen powered DC offshore microgrid</h3>
+                            <p class="publication-authors">Naghmash Ali, Xinwei Shen, Hammad Armghan, Yunfei Du.</p>
+                            <p class="publication-venue">Journal of Energy Storage, 2024 (I.F-9.4)</p>
                         </div>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">2020</h3>
-                <div class="space-y-6">
-                    <div class="publication-item">
-                        <h3 class="publication-title">C2: Soft Computing Technique based Nonlinear Sliding Mode Control for Stand-Alone Photovoltaic System</h3>
-                        <p class="publication-authors">Rehman, Atiq Ur, Laiq Khan, Naghmash Ali, Zaheer Alam, Zain Ahmad Khan, and Malak Adnan Khan.</p>
-                        <p class="publication-venue">2020 International Conference on Emerging Trends in Smart Technologies (ICETST), pp. 1-6. IEEE, 2020</p>
-                    </div>
-                </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J26: A tri-level control framework for carbon-aware multi-energy microgrid cluster considering shared hydrogen energy storage</h3>
+                            <p class="publication-authors">Hammad Armghan, Yinliang Xu, Xiang Bai, Naghmash Ali, Xinyue Chang, Yixun Xue.</p>
+                            <p class="publication-venue">Applied Energy, 2024 (I.F-11.2)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J25: Coordination Control in Hybrid Energy Storage Based Microgrids Providing Ancillary Services: A Three-Layer Control</h3>
+                            <p class="publication-authors">Hammad Armghan, Yinliang Xu, Naghmash Ali.</p>
+                            <p class="publication-venue">Journal of Energy Storage, 2024 (I.F-9.4)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J24: Deep Learning Based Barrier-function Super-twisting Sliding Mode Control For Integrating Renewables In Smart Grid</h3>
+                            <p class="publication-authors">Hammad Armghan, Yinliang Xu, Xiang Bai, Naghmash Ali, Yixun Xue.</p>
+                            <p class="publication-venue">IET Smart Grid, 2024 (I.F-2.4)</p>
+                        </div>
+                    </li>
+                     <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J23: Event-triggered multi-time scale control and low carbon operation for electric-hydrogen DC microgrid</h3>
+                            <p class="publication-authors">Hammad Armghan, Yinliang Xu, Hongbin Sun, Naghmash Ali, Jiajin Liu.</p>
+                            <p class="publication-venue">Applied Energy, 2024 (I.F-11.2)</p>
+                        </div>
+                    </li>
+                </ol>
+
+                <h3 class="publication-year-subheader">2023</h3>
+                <ol class="publication-list">
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J22: Hybrid Control of the DC Microgrid Using Deep Neural Networks and Global Terminal Sliding Mode Control with the Exponential Reaching Law</h3>
+                            <p class="publication-authors">Mohamed A Sharaf, Hammad Armghan, Naghmash Ali, Amr Yousef, Yasser S Abdalla, Anis R Boudabbous, Hafiz Mehdi, Ammar Armghan.</p>
+                            <p class="publication-venue">Sensors, 2023 (I.F-3.9)</p>
+                        </div>
+                    </li>
+                </ol>
+
+                <h3 class="publication-year-subheader">2022</h3>
+                <ol class="publication-list">
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J21: Fast reaching law based integral terminal sliding mode controller for PV-fuel cell-battery-super capacitor based direct-current microgrid</h3>
+                            <p class="publication-authors">Yasser S Abdalla, Naghmash Ali, Abdulaziz Alanazi, Mohana Alanazi, Hammad Armghan, Mohamed A Sharaf, Anis R Boudabbous, Ammar Armghan.</p>
+                            <p class="publication-venue">Journal of Energy Storage, 2022 (I.F-9.4)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J20: Super-twisting sliding mode controller for maximum power transfer efficiency tracking in hybrid energy storage based wireless in-wheel motor</h3>
+                            <p class="publication-authors">Naghmash Ali, Zhizhen Liu, Hammad Armghan, Ammar Armghan.</p>
+                            <p class="publication-venue">Sustainable Energy Technologies and Assessments, 2022 (I.F-8.0)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J19: Double integral sliding mode controller for wirelessly charging of fuel cell-battery-super capacitor based hybrid electric vehicle</h3>
+                            <p class="publication-authors">Naghmash Ali, Zhizhen Liu, Hammad Armghan, Ammar Armghan.</p>
+                            <p class="publication-venue">Journal of Energy Storage, 2022 (I.F-9.4)</p>
+                        </div>
+                    </li>
+                     <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J18: Quick reaching law based global terminal sliding mode control for wind/hydrogen/battery DC microgrid</h3>
+                            <p class="publication-authors">Hammad Armghan, Ming Yang, Naghmash Ali, Ammar Armghan, Abdulaziz Alanazi.</p>
+                            <p class="publication-venue">Applied Energy, 2022 (I.F-11.2)</p>
+                        </div>
+                    </li>
+                     <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J17: A novel dual-load wireless power transfer system applied to electric vehicles and its characteristics analysis</h3>
+                            <p class="publication-authors">Xiaozhao Wei, Yanjin Hou, Zhizhen Liu, Sen Qiao, Liuhuan Liang, Naghmash Ali, Shuyao Sun, Xueqing Luo, Ran Ding, and Guowen Feng.</p>
+                            <p class="publication-venue">Energy Reports 8 (2022) (I.F-5.2)</p>
+                        </div>
+                    </li>
+                </ol>
+
+                <h3 class="publication-year-subheader">2021</h3>
+                <ol class="publication-list">
+                     <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J16: Barrier Function Based Adaptive Sliding Mode Controller for a Hybrid AC/DC Microgrid Involving Multiple Renewables</h3>
+                            <p class="publication-authors">Ammar Armghan, Mudasser Hassan, Hammad Armghan, Ming Yang, Fayadh Alenezi, Muhammad Kashif Azeem, Naghmash Ali.</p>
+                            <p class="publication-venue">Applied Sciences, 2021 (I.F-2.7)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J15: Neurofuzzy robust backstepping based MPPT control for photovoltaic system</h3>
+                            <p class="publication-authors">Kamran Ali, Laiq Khan, Qudrat Khan, Shafaat Ullah, and Naghmash Ali.</p>
+                            <p class="publication-venue">Turkish Journal of Electrical Engineering and Computer Sciences 29, no. 1 (2021) (I.F-1.1)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J14: Double integral action based sliding mode controller design for the back-to-back converters in grid-connected hybrid wind-PV system</h3>
+                            <p class="publication-authors">Hammad Armghan, Ming Yang, Ammar Armghan, Naghmash Ali.</p>
+                            <p class="publication-venue">International Journal of Electrical Power & Energy Systems, 2021 (I.F-5.2)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J13: Dynamic process analysis and voltage stabilization control of multi-load wireless power supply system</h3>
+                            <p class="publication-authors">Shujing Fan, Zhizhen Liu, Guowen Feng, Naghmash Ali, and Yanjin Hou.</p>
+                            <p class="publication-venue">Energies 14, no. 5 (2021) (I.F-3.252)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J12: LCC-S-based integral terminal sliding mode controller for a hybrid energy storage system using a wireless power system</h3>
+                            <p class="publication-authors">Naghmash Ali, Zhizhen Liu, Hammad Armghan, Iftikhar Ahmad, Yanjin Hou.</p>
+                            <p class="publication-venue">Energies, 2021 (I.F-3.2)</p>
+                        </div>
+                    </li>
+                </ol>
+
+                <h3 class="publication-year-subheader">2020</h3>
+                <ol class="publication-list">
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J11: Lyapunov based adaptive controller for power converters used in hybrid energy storage systems</h3>
+                            <p class="publication-authors">Mudasser Hassan, Zahir Javed Paracha, Hammad Armghan, Naghmash Ali, Hafiz Ahsan Said, Umar Farooq, Ammar Afzal, Muhammad Arshad Shehzad Hassan.</p>
+                            <p class="publication-venue">Sustainable Energy Technologies and Assessments, 2020 (I.F-8.0)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J10: Dual-band wireless power transmission system for dual-load synchronous power supply</h3>
+                            <p class="publication-authors">Liuhuan Liang, Zhizhen Liu, Shujing Fan, Tang Guoshen, Yanjin Hou Naghmash Ali.</p>
+                            <p class="publication-venue">Proc. CSEE 40.10 (2020)</p>
+                        </div>
+                    </li>
+                     <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J9: Non-linear control for electric power stage of fuel cell vehicles</h3>
+                            <p class="publication-authors">Muhammad Faizan Munir, Iftikhar Ahmad, Syed Ahmad Siffat, Mohammad Ahmed Qureshi, Hammad Armghan, Naghmash Ali.</p>
+                            <p class="publication-venue">ISA transactions, 2020 (I.F-7.3)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J8: Design of integral terminal sliding mode controller for the hybrid AC/DC microgrids involving renewables and energy storage systems</h3>
+                            <p class="publication-authors">Hammad Armghan, Ming Yang, Ammar Armghan, Naghmash Ali, MQ Wang, Iftikhar Ahmad.</p>
+                            <p class="publication-venue">International Journal of Electrical Power & Energy Systems, 2020 (I.F-5.2)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J7: Nonlinear integral backstepping based control of a DC microgrid with renewable generation and energy storage systems</h3>
+                            <p class="publication-authors">Hammad Armghan, Ming Yang, MQ Wang, Naghmash Ali, Ammar Armghan.</p>
+                            <p class="publication-venue">International Journal of Electrical Power & Energy Systems, 2020 (I.F-5.2)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J6: LCC-S based discrete fast terminal sliding mode controller for efficient charging through wireless power transfer</h3>
+                            <p class="publication-authors">Naghmash Ali, Zhizhen Liu, Yanjin Hou, Hammad Armghan, Xiaozhao Wei, Ammar Armghan.</p>
+                            <p class="publication-venue">Energies, 2020 (I.F-3.2)</p>
+                        </div>
+                    </li>
+                </ol>
+
+                <h3 class="publication-year-subheader">2019</h3>
+                <ol class="publication-list">
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J5: Robust integral backstepping based nonlinear mppt control for a pv system</h3>
+                            <p class="publication-authors">Kamran Ali, Laiq Khan, Qudrat Khan, Shafaat Ullah, Saghir Ahmad, Sidra Mumtaz, Fazal Wahab Karam, Naghmash Ali.</p>
+                            <p class="publication-venue">Energies 12, no. 16 (2019) (I.F-3.252)</p>
+                        </div>
+                    </li>
+                </ol>
+                
+                <h3 class="publication-year-subheader">2018</h3>
+                <ol class="publication-list">
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J4: Backstepping sliding mode control of FC-UC based hybrid electric vehicle</h3>
+                            <p class="publication-authors">Muhammad Saud Khan, Iftikhar Ahmad, Hammad Armghan, Naghmash Ali.</p>
+                            <p class="publication-venue">IEEE Access, 2018 (I.F-3.9)</p>
+                        </div>
+                    </li>
+                     <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J3: Nonlinear controller analysis of fuel cell-battery-ultracapacitor-based hybrid energy storage systems in electric vehicles</h3>
+                            <p class="publication-authors">Hammad Armghan, Iftikhar Ahmad, Naghmash Ali, Muhammad Faizan Munir, Saud Khan, Ammar Armghan.</p>
+                            <p class="publication-venue">Arabian Journal for Science and Engineering, 2018 (I.F-2.9)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J2: MPPT for photovoltaic system using nonlinear controller</h3>
+                            <p class="publication-authors">Ramsha Iftikhar, Iftikhar Ahmad, Muhammad Arsalan, Neelma Naz, Naghmash Ali, Hammad Armghan.</p>
+                            <p class="publication-venue">International Journal of Photoenergy, 2018 (I.F-2.5)</p>
+                        </div>
+                    </li>
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">J1: Backstepping based non-linear control for maximum power point tracking in photovoltaic system</h3>
+                            <p class="publication-authors">Naghmash Ali, Hammad Armghan, Iftikhar Ahmad, Ammar Armghan, Saud Khan, Muhammad Arsalan.</p>
+                            <p class="publication-venue">Solar Energy, 2018 (I.F-6.7)</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div>
+                <h2 class="publication-category-header"><i class="fas fa-users"></i>Conference Papers</h2>
+                <h3 class="publication-year-subheader">2024</h3>
+                <ol class="publication-list">
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">C1: Improved Grey Wolf Optimized Integral Terminal Sliding Mode Controller for Wind/PV/Tidal based Offshore Microgrid System</h3>
+                            <p class="publication-authors">Naghmash Ali, Xinwei Shen, Hammad Armghan, Umar Farooq.</p>
+                            <p class="publication-venue">8th IEEE Conference on Energy Internet and Energy System Integration. IEEE, 2024</p>
+                        </div>
+                    </li>
+                </ol>
+                <h3 class="publication-year-subheader">2020</h3>
+                <ol class="publication-list">
+                    <li class="publication-item">
+                        <div class="publication-item-content">
+                            <h3 class="publication-title">C2: Soft Computing Technique based Nonlinear Sliding Mode Control for Stand-Alone Photovoltaic System</h3>
+                            <p class="publication-authors">Rehman, Atiq Ur, Laiq Khan, Naghmash Ali, Zaheer Alam, Zain Ahmad Khan, and Malak Adnan Khan.</p>
+                            <p class="publication-venue">2020 International Conference on Emerging Trends in Smart Technologies (ICETST), pp. 1-6. IEEE, 2020</p>
+                        </div>
+                    </li>
+                </ol>
             </div>
 
         </section>
