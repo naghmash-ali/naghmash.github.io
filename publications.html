@@ -10,8 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script>
-        // Tailwind config is kept for potential JS use or if some utilities are still directly used in HTML.
-        // However, CSS in the <style> block below will not directly use this JS object.
         tailwind.config = {
             theme: {
                 extend: {
@@ -40,10 +38,10 @@
             background-color: #f4f7f6; /* Converted from tailwind.theme.colors.lightgray */
         }
         .nav-link {
-            padding-left: 0.75rem;
-            padding-right: 0.75rem;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
+            padding-left: 0.75rem; /* px-3 */
+            padding-right: 0.75rem; /* px-3 */
+            padding-top: 0.5rem; /* py-2 */
+            padding-bottom: 0.5rem; /* py-2 */
             border-radius: 0.375rem; /* rounded-md */
             font-size: 0.875rem; /* text-sm */
             line-height: 1.25rem;
@@ -72,19 +70,15 @@
         .publication-list {
             list-style-type: decimal;
             list-style-position: inside;
-            /* space-y-0 is default if children have margins */
         }
         .publication-list li::marker {
             font-weight: 600; /* font-semibold */
             color: #1E3A8A; /* text-primary from config */
         }
-        .publication-item { /* This is an <li> */
-            /* Styles for the card itself are now mostly on publication-item-content */
+        .publication-item { 
             margin-bottom: 1rem; /* mb-4, spacing between items */
-            /* ml-4 was to indent for list number, list-inside handles this differently. */
-            /* We might need padding on the li itself or adjust content padding if marker overlaps. */
         }
-        .publication-item-content { /* Wrapper for the content inside li */
+        .publication-item-content { 
             padding: 1.5rem; /* p-6 */
             border-radius: 0.5rem; /* rounded-lg */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
@@ -98,7 +92,6 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
             border-color: #1E3A8A; /* border-primary from config */
         }
-
         .publication-list li:nth-child(odd) .publication-item-content {
              background-color: #ffffff; /* cardbg from config */
         }
@@ -115,7 +108,7 @@
         .publication-authors {
             font-size: 0.875rem; /* text-sm */
             line-height: 1.25rem;
-            color: #374151; /* text-gray-700, using darkgray for better contrast */
+            color: #374151; 
             margin-bottom: 0.25rem; /* mb-1 */
         }
         .publication-venue {
@@ -155,21 +148,9 @@
             border-radius: 0.375rem; /* rounded-md */
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
         }
-        /* Dropdown styles - relies on Tailwind's group-hover, which should work with CDN JIT */
-        .dropdown .dropdown-menu {
-            opacity: 0;
-            visibility: hidden;
-            transition-property: all;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transition-duration: 150ms;
-        }
-        .group:hover .dropdown-menu { /* Tailwind's group-hover equivalent */
-            opacity: 1;
-            visibility: visible;
-        }
         .info-banner {
             text-align: center;
-            color: #374151; /* text-gray-700, using darkgray for better contrast */
+            color: #374151; 
             background-color: #DBEAFE; /* bg-blue-100 */
             padding: 1.5rem; /* p-6 */
             border-radius: 0.5rem; /* rounded-lg */
@@ -187,7 +168,6 @@
             border-color: #E5E7EB; /* border-gray-200 */
             margin-bottom: 3rem; /* mb-12 */
         }
-        /* stats-inner-container and stat-card can remain as Tailwind classes in HTML as they are simple */
         .stat-card i {
             font-size: 1.875rem; /* text-3xl */
             line-height: 2.25rem;
@@ -221,19 +201,9 @@
                         <a href="index.html#research" class="nav-link" data-nav="research">Research</a>
                         <a href="index.html#experience" class="nav-link" data-nav="experience">Experience</a>
                         <a href="publications.html" class="nav-link active" data-page="publications">Publications</a>
-                        
-                        <div class="relative group dropdown">
-                            <button class="nav-link inline-flex items-center">
-                                More <i class="fas fa-chevron-down ml-1 text-xs"></i>
-                            </button>
-                            <div class="absolute left-0 mt-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 dropdown-menu z-50">
-                                <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                    <a href="index.html#awards" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-primary" role="menuitem" data-nav="awards">Awards</a>
-                                    <a href="index.html#grants" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-primary" role="menuitem" data-nav="grants">Grants</a>
-                                    <a href="index.html#teaching" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-primary" role="menuitem" data-nav="teaching">Teaching</a>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="index.html#awards" class="nav-link" data-nav="awards">Awards</a>
+                        <a href="index.html#grants" class="nav-link" data-nav="grants">Grants</a>
+                        <a href="index.html#teaching" class="nav-link" data-nav="teaching">Teaching</a>
                         <a href="index.html#contact" class="nav-link" data-nav="contact">Contact</a>
                     </div>
                 </div>
